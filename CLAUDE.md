@@ -185,6 +185,7 @@ fix/{이름}/{버그}
 - TypeScript: Prettier + ESLint (Expo 기본)
 - 네이밍: snake_case (Python), camelCase (TS), PascalCase (컴포넌트), UPPER_SNAKE_CASE (상수)
 - 화면 파일명: W코드 기준 (예: `WA01Login.tsx`, 목록은 `docs/spec/screens.md`)
+- pre-commit: ruff + detect-secrets (설정 상세는 `docs/guides/environment-setup.md`)
 - CI: `ruff check` + `ruff format --check` → 실패 시 머지 차단
 
 ---
@@ -195,6 +196,7 @@ fix/{이름}/{버그}
 - 에러 코드: VALIDATION_ERROR(400) / UNAUTHORIZED(401) / FORBIDDEN(403) / NOT_FOUND(404) / CONFLICT(409) / RATE_LIMITED(429) / INTERNAL_ERROR(500)
 - 구현: `server/app/core/exceptions.py` (AppError) + `exception_handlers.py` (전역) + `middleware.py` (request_id)
 - 프로덕션 노출 금지: 스택 트레이스, SQL, 파일 경로, API 키
+- 로깅: `print()` 금지 → `logging` 모듈 사용, 에러 로그에 `request_id` 필수, 프로덕션 레벨 WARNING
 - 상세: `docs/guides/error-handling.md`
 
 ---
