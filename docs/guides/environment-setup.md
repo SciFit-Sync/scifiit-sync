@@ -37,24 +37,17 @@ cp app/.env.example app/.env
 ```
 
 ```bash
-# 4. pre-commit 설정
-pip install pre-commit
-pre-commit install
-detect-secrets scan > .secrets.baseline
-```
-
-```bash
-# 5. Docker로 전체 실행
+# 4. Docker로 실행
 docker compose up
 ```
 
 ```bash
-# 6. DB 마이그레이션
+# 5. DB 마이그레이션
 docker compose exec server alembic upgrade head
 ```
 
 ```bash
-# 7. 앱 실행 (별도 터미널)
+# 6. 앱 실행 (별도 터미널)
 cd app && npm install && npx expo start
 ```
 

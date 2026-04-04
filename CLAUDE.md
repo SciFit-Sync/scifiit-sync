@@ -185,7 +185,6 @@ fix/{이름}/{버그}
 - TypeScript: Prettier + ESLint (Expo 기본)
 - 네이밍: snake_case (Python), camelCase (TS), PascalCase (컴포넌트), UPPER_SNAKE_CASE (상수)
 - 화면 파일명: W코드 기준 (예: `WA01Login.tsx`, 목록은 `docs/spec/screens.md`)
-- pre-commit: ruff + detect-secrets (설정 상세는 `docs/guides/environment-setup.md`)
 - CI: `ruff check` + `ruff format --check` → 실패 시 머지 차단
 
 ---
