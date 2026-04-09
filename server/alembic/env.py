@@ -17,10 +17,10 @@ if config.config_file_name is not None:
 # .env에서 DATABASE_URL 로딩
 config.set_main_option("sqlalchemy.url", os.getenv("DATABASE_URL", ""))
 
-# 모든 모델의 MetaData를 import (모델 추가 시 여기에 반영)
-# from app.models import Base
-# target_metadata = Base.metadata
-target_metadata = None
+# 모든 모델의 MetaData를 import
+from app.models import Base  # noqa: E402
+
+target_metadata = Base.metadata
 
 
 def run_migrations_offline() -> None:

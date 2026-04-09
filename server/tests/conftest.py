@@ -1,4 +1,11 @@
-"""
-공통 테스트 픽스처.
-테스트 DB 세션, 인증 토큰, 팩토리 등은 여기에 정의합니다.
-"""
+import pytest_asyncio
+from httpx import ASGITransport, AsyncClient
+
+from app.main import app
+
+
+@pytest_asyncio.fixture
+async def client():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        yield ac

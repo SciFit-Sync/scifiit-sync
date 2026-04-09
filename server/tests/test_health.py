@@ -1,9 +1,18 @@
-"""
-최소 스모크 테스트 — CI 파이프라인이 정상 동작하는지 확인합니다.
-실제 엔드포인트 구현 후 교체하세요.
-"""
+import pytest
 
 
-def test_ci_pipeline_runs():
-    """CI가 테스트 0건으로 실패하지 않도록 하는 최소 테스트."""
-    assert True
+@pytest.mark.asyncio
+async def test_health_check_returns_200(client):
+    response = await client.get("/api/v1/health")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["success"] is True
+    assert data["data"]["status"] == "ok"
+
+
+@pytest.mark.asyncio
+async def test_health_check_has_request_id(client):
+    response = await client.get("/api/v1/health")
+    assert "x-request-id" in response.headers
+    request_id = response.headers["x-request-id"]
+    assert len(request_id) == 36  # UUID format

@@ -1,0 +1,43 @@
+import logging
+
+from fastapi import FastAPI
+from fastapi.exceptions import RequestValidationError
+
+from app.api.v1 import router as v1_router
+from app.core.config import get_settings
+from app.core.exception_handlers import (
+    app_error_handler,
+    unhandled_error_handler,
+    validation_error_handler,
+)
+from app.core.exceptions import AppError
+from app.core.middleware import RequestIdMiddleware
+
+settings = get_settings()
+
+logging.basicConfig(
+    level=logging.WARNING if settings.ENV == "production" else logging.INFO,
+    format="%(asctime)s %(levelname)-5.5s [%(name)s] %(message)s",
+)
+
+
+def create_app() -> FastAPI:
+    app = FastAPI(
+        title="SciFit-Sync",
+        version="1.0.0",
+        docs_url=None if settings.ENV == "production" else "/docs",
+        redoc_url=None if settings.ENV == "production" else "/redoc",
+    )
+
+    app.add_middleware(RequestIdMiddleware)
+
+    app.add_exception_handler(AppError, app_error_handler)
+    app.add_exception_handler(RequestValidationError, validation_error_handler)
+    app.add_exception_handler(Exception, unhandled_error_handler)
+
+    app.include_router(v1_router)
+
+    return app
+
+
+app = create_app()
