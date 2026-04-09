@@ -1,5 +1,7 @@
 # API 명세 (50개)
 
+> **상세 명세 (Request/Response 포함)**: [Notion API 명세서](https://www.notion.so/32eaebb23ee081dda33ee792957dd16d?v=335aebb23ee0808d9ad6000c2c7c2d30)
+
 **Base URL**: `/api/v1`
 **인증**: `Authorization: Bearer {access_token}`
 
